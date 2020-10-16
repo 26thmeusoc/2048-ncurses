@@ -26,16 +26,24 @@ int TILES = 4; // Size of Playingfield, will be TILESxTILES
 int** playingField;
 
 void fillEmptyField(int **playingField) {
-    int added = 0;
-    while (!added) {
-        srand(time(NULL));
-        int randX = rand()%TILES;
-        int randY = rand()%TILES;
-        if (playingField[randX][randY] == 0) {
-            playingField[randX][randY] = 2;
-            added = 1;
+    int counter = 0;
+    int* row = malloc(16*sizeof(int));
+    int* cell = malloc(16*sizeof(int));
+    for (int r = 0; r < 4; r++) {
+        for (int c = 0; c < 4; c++) {
+            if (playingField[r][c] == 0) {
+                row[counter] = r;
+                cell[counter] = c;
+                counter++;
+            }
         }
     }
+    
+    int field = rand() % counter;
+    
+    playingField[row[field]][cell[field]] = 2;
+    free(row);
+    free(cell);
 }
 
 void refreshScreen() {
