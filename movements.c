@@ -1,47 +1,58 @@
 #include "movements.h"
 
+/*
+ *
+ */
+
 int moveLeft(int** playingField, long long int *score) {
-    int moved = 1;
-    int maxX, maxY;
-    int result = 0;
+    int moved = 1; // Remember whether there was a move (for loops)
+    int maxX, maxY; // Remember screendimensions
+    int result = 0; // Was there a useful move done?
     // First of all, move all tiles to the left, replace 0-fields with value next to them
     while (moved > 0) { // As long as there was a move last time
-        moved=0;
+        moved=0; // Reset moved-variable, so we can check again, whether there was something done in this loop
         for (int row = 0; row < 4; row++) { // For every row
             for (int col = 0; col < 3; col++) { // in each column
-                if ((playingField[row][col] == 0) && (playingField[row][col+1] > 0)) {
+                if ((playingField[row][col] == 0) && (playingField[row][col+1] > 0)) { // Is the current field a 0 and has a field with value > 0 to the right?
+                    // Yes! Switch those fields
                     playingField[row][col] = playingField[row][col+1];
                     playingField[row][col+1] = 0;
-                    moved = 1;
-                    result = 1;
+                    moved = 1; // Remember, there was a loop iteration in this move
+                    result = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
                 }
             }
         }
     }
     
-    // Now check if there can be any combinations made!
-    for (int row = 0; row < 4; row++) {
-        for (int col = 0; col < 3; col++) {
+    // Now check if there can be any merges made!
+    for (int row = 0; row < 4; row++) { // For each row
+        for (int col = 0; col < 3; col++) { // in each column
+            // Are this cell and the cell to the right are the same value AND both are not 0?
+            // Second check is imporant, so we don't make useless merges
             if ((playingField[row][col] == playingField[row][col+1]) && (playingField[row][col] > 0)) {
-                *score += playingField[row][col]*2;
-                playingField[row][col] = playingField[row][col]*2;
-                playingField[row][col+1] = 0;
-                result = 1;
+                *score += playingField[row][col]*2; // Add to score
+                playingField[row][col] = playingField[row][col]*2; // Merge two cells
+                playingField[row][col+1] = 0; // Reset value of second cell
+                result = 1; // There was at least one useful move done (merging two cells) in this call, remember it for later
             }
         }
     }
     
-    if (result > 0) {
-        moved=1;
-        // Remove 0s again
+    /*
+     * In case there were cells merged in the step before, we need
+     * to remove newly created cells with value=0 
+     */
+    if (result > 0) { // Was there anything useful done up until here? If not, we can just skip this step
+        moved=1; // Set this to 1 so we get into the loop
         while (moved > 0) { // As long as there was a move last time
-            moved = 0;
+            moved = 0; // Reset to 0, check again whether there was done something useful
             for (int row = 0; row < 4; row++) { // For every row
                 for (int col = 0; col < 3; col++) { // in each column
-                    if ((playingField[row][col] == 0) && (playingField[row][col+1] > 0)) {
+                    if ((playingField[row][col] == 0) && (playingField[row][col+1] > 0)) { // Is there a cell with value > 0 to the right?
+                        // Yes, move it to the left now
                         playingField[row][col] = playingField[row][col+1];
                         playingField[row][col+1] = 0;
-                        moved = 1;
+                        moved = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
                     }
                 }
             }
@@ -52,35 +63,40 @@ int moveLeft(int** playingField, long long int *score) {
 }
 
 int moveRight(int **playingField, long long int *score) {
-    int moved = 1;
-    int result = 0;
+    int moved = 1; // Remember whether there was a move (for loops)
+    int result = 0; // Was there a useful move done?
     // First of all, move all tiles to the left, replace 0-fields with value next to them
     while (moved > 0) { // As long as there was a move last time
-        moved=0;
+        moved=0;// Reset moved-variable, so we can check again, whether there was something done in this loop
         for (int row = 0; row < 4; row++) { // For every row
             for (int col = 3; col > 0; col--) { // in each column
-                if ((playingField[row][col] == 0) && (playingField[row][col-1] > 0)) {
+                if ((playingField[row][col] == 0) && (playingField[row][col-1] > 0)) { // Is the current field a 0 and has a field with value > 0 to the right?
+                    // Yes! Switch those fields
                     playingField[row][col] = playingField[row][col-1];
-                    playingField[row][col-1] = 0;
-                    moved = 1;
-                    result = 1;
+                    moved = 1; // Remember, there was a loop iteration in this move
+                    result = 1; // There was at least one useful move done (moved a 0 field to the left) in this call, remember it for later
                 }
             }
         }
     }
     
-    // Now check if there can be any combinations made!
-    for (int row = 0; row < 4; row++) {
-        for (int col = 3; col > 0; col--) {
-            if ((playingField[row][col] == playingField[row][col-1]) && (playingField[row][col] > 0)) {
-                *score += playingField[row][col]*2;
-                playingField[row][col] = playingField[row][col]*2;
-                playingField[row][col-1] = 0;
-                result = 1;
+    // Now check if there can be any merges made!
+    for (int row = 0; row < 4; row++) { // For each row
+        for (int col = 3; col > 0; col--) { // in each column
+            if ((playingField[row][col] == playingField[row][col-1]) && (playingField[row][col] > 0)) { // Are this cell and the cell to the left are the same value AND both are not 0?
+            // Second check is imporant, so we don't make useless merges
+                *score += playingField[row][col]*2; // Add to score
+                playingField[row][col] = playingField[row][col]*2; // Merge two cells
+                playingField[row][col-1] = 0; // Reset value of second cell
+                result = 1; // There was at least one useful move done (merging two cells) in this call, remember it for later
             }
         }
     }
     
+    /*
+     * In case there were cells merged in the step before, we need
+     * to remove newly created cells with value=0 
+     */
     if (result > 0) {
         moved=1;
         // Remove 0s again
@@ -88,10 +104,11 @@ int moveRight(int **playingField, long long int *score) {
             moved = 0;
             for (int row = 0; row < 4; row++) { // For every row
                 for (int col = 3; col > 0; col--) { // in each column
-                    if ((playingField[row][col] == 0) && (playingField[row][col-1] > 0)) {
+                    if ((playingField[row][col] == 0) && (playingField[row][col-1] > 0)) { // Is the current field a 0 and has a field with value > 0 to the left?
+                        // Yes, move it to the right now
                         playingField[row][col] = playingField[row][col-1];
                         playingField[row][col-1] = 0;
-                        moved = 1;
+                        moved = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
                     }
                 }
             }
@@ -102,34 +119,42 @@ int moveRight(int **playingField, long long int *score) {
 }
 
 int moveUp(int ** playingField, long long int *score) {
-    int result = 0;
-    int moved = 1;
+    int result = 0; // Was there a useful move done?
+    int moved = 1; // Remember whether there was a move (for loops)
     // First of all, move all tiles to the left, replace 0-fields with value next to them
     while (moved > 0) { // As long as there was a move last time
         moved=0;
         for (int row = 0; row < 3; row++) { // For every row
             for (int col = 0; col < 4; col++) { // in each column
-                if ((playingField[row][col] == 0) && (playingField[row+1][col] > 0)) {
+                if ((playingField[row][col] == 0) && (playingField[row+1][col] > 0)) { // Is the current field a 0 and has a field with value > 0 above?
+                    // Yes! Switch those fields
                     playingField[row][col] = playingField[row+1][col];
-                    playingField[row+1][col] = 0;
-                    moved = 1;
-                    result = 1;
+                    playingField[row+1][col] = 0; // Reset value of second cell
+                    moved = 1; // Remember, there was a loop iteration in this move
+                    result = 1; // There was at least one useful move done (moved a 0 field down) in this call, remember it for later
                 }
             }
         }
     }
     
-    // Now check if there can be any combinations made!
-    for (int row = 0; row < 3; row++) {
-        for (int col = 0; col < 4; col++) {
+    // Now check if there can be any merges made!
+    for (int row = 0; row < 3; row++) { // For each row
+        for (int col = 0; col < 4; col++) { // in each column
+            // Are this cell and the cell above are the same value AND both are not 0?
+            // Second check is imporant, so we don't make useless merges
             if ((playingField[row+1][col] == playingField[row][col]) && (playingField[row][col] > 0)) {
-                *score += playingField[row][col]*2;
-                playingField[row][col] = playingField[row][col]*2;
-                playingField[row+1][col] = 0;
-                result = 1;
+                *score += playingField[row][col]*2; // Add to score
+                playingField[row][col] = playingField[row][col]*2; // Merge two cells
+                playingField[row+1][col] = 0; // Reset value of second cell
+                result = 1; // There was at least one useful move done (merging two cells) in this call, remember it for later
             }
         }
     }
+    
+    /*
+     * In case there were cells merged in the step before, we need
+     * to remove newly created cells with value=0 
+     */
     if (result > 0) {
         moved=1;
         // Remove 0s again
@@ -137,10 +162,11 @@ int moveUp(int ** playingField, long long int *score) {
             moved = 0;
             for (int row = 0; row < 3; row++) { // For every row
                 for (int col = 0; col < 4; col++) { // in each column
-                    if ((playingField[row][col] == 0) && (playingField[row+1][col] > 0)) {
+                    if ((playingField[row][col] == 0) && (playingField[row+1][col] > 0)) { // Is the current field a 0 and has a field with value > 0 below?
+                        // Yes, move it down now
                         playingField[row][col] = playingField[row+1][col];
                         playingField[row+1][col] = 0;
-                        moved = 1;
+                        moved = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
                     }
                 }
             }
@@ -151,34 +177,42 @@ int moveUp(int ** playingField, long long int *score) {
 }
 
 int moveDown(int **playingField, long long int *score) {
-    int result = 0;
-    int moved = 1;
+    int result = 0; // Was there a useful move done?
+    int moved = 1; // Remember whether there was a move (for loops)
     // First of all, move all tiles to the left, replace 0-fields with value next to them
     while (moved > 0) { // As long as there was a move last time
         moved=0;
         for (int row = 3; row > 0; row--) { // For every row
             for (int col = 0; col < 4; col++) { // in each column
-                if ((playingField[row][col] == 0) && (playingField[row-1][col] > 0)) {
+                if ((playingField[row][col] == 0) && (playingField[row-1][col] > 0)) { // Is the current field a 0 and has a field with value > 0 below?
+                    // Yes! Switch those fields
                     playingField[row][col] = playingField[row-1][col];
-                    playingField[row-1][col] = 0;
-                    moved = 1;
-                    result = 1;
+                    playingField[row-1][col] = 0; // Reset value of second cell
+                    moved = 1; // Remember, there was a loop iteration in this move
+                    result = 1; // There was at least one useful move done (moved a 0 field to the up) in this call, remember it for later
                 }
             }
         }
     }
     
-    // Now check if there can be any combinations made!
-    for (int row = 3; row > 0; row--) {
-        for (int col = 0; col < 4; col++) {
-            if ((playingField[row][col] == playingField[row-1][col]) && (playingField[row][col] > 0)) {
-                *score += playingField[row][col]*2;
+    // Now check if there can be any merges made!
+    for (int row = 3; row > 0; row--) {  // For each row
+        for (int col = 0; col < 4; col++) { // in each column
+            if ((playingField[row][col] == playingField[row-1][col]) && (playingField[row][col] > 0)) { // Are this cell and the cell below are the same value AND both are not 0?
+            // Second check is imporant, so we don't make useless merges
+                *score += playingField[row][col]*2; // Add to score
                 playingField[row][col] = playingField[row-1][col]*2;
-                playingField[row-1][col] = 0;
-                result = 1;
+                // Merge two cells
+                playingField[row-1][col] = 0; // Reset value of second cell
+                result = 1; // There was at least one useful move done (merging two cells) in this call, remember it for later
             }
         }
     }
+    
+    /*
+     * In case there were cells merged in the step before, we need
+     * to remove newly created cells with value=0 
+     */
     if (result > 0) { // Do this only, if there was a movement before!
         moved=1;
         // Remove 0s again
@@ -186,10 +220,11 @@ int moveDown(int **playingField, long long int *score) {
             moved = 0;
             for (int row = 3; row > 0; row--) { // For every row
                 for (int col = 0; col < 4; col++) { // in each column
-                    if ((playingField[row][col] == 0) && (playingField[row-1][col] > 0)) {
+                    if ((playingField[row][col] == 0) && (playingField[row-1][col] > 0)) { // Is the current field a 0 and has a field with value > 0 above?
+                        // Yes, move it up now
                         playingField[row][col] = playingField[row-1][col];
                         playingField[row-1][col] = 0;
-                        moved = 1;
+                        moved = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
                     }
                 }
             }
