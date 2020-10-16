@@ -57,7 +57,7 @@ void refreshScreen() {
                 }
             ycol+=maxY/4;
         }
-        xrow=xrow+maxX/4;
+        xrow++;
     }
     refresh();
 }
