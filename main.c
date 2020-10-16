@@ -5,7 +5,7 @@
  * Web: http://github.com/26thmeusoc/2048-ncurses
  * 
  * File created:  14.10.2020
- * Last modified: 15.10.2020
+ * Last modified: 16.10.2020
  * 
  * Description:
  * This code is a C reimplementation of Gabriele Cirullis JavaScript
@@ -69,9 +69,9 @@ int movePossible(int **playingField) {
  * @param playingField
  */
 void fillEmptyField(int **playingField) {
-    /* Instead of simply searching for empty fields until one is 
-     * found (can take a very long time!), generate a list of empty
-     *  fields and choose one of them.
+    /* Instead of simply randomly searching for empty fields until
+     * one is found (can take a very long time!), generate a list
+     * of empty fields and choose one of them.
      */
     int counter = 0; // Count how many empty fields have been found
     
@@ -92,8 +92,13 @@ void fillEmptyField(int **playingField) {
     
     int field = rand() % counter; // Select one random field
     
-    // Set value of this field to two
-    playingField[row[field]][cell[field]] = 2; 
+    // With a chance of 3:1
+    if ((rand()%4) < 3) {
+        // Set value of this field with 2
+        playingField[row[field]][cell[field]] = 2;
+    } else { // Set value to 4
+        playingField[row[field]][cell[field]] = 4;
+    }
     free(row); // Free both lists, so we don't leak memory
     free(cell);
 }
