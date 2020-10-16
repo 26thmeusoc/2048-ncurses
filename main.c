@@ -13,6 +13,7 @@
  * a UI. It is created to get the highest possible compability across all
  * Operating Systems.
  */
+
 #include <stdlib.h> // For Standards, random
 #include <stdio.h> // For Output
 #include <time.h>
@@ -24,8 +25,9 @@
 int TILES = 4; // Size of Playingfield, will be TILESxTILES
 
 int** playingField;
-
+long long int score = 0;
 void fillEmptyField(int **playingField) {
+    // Instead of simply searching for empty fields until one is found (can take a very long time!), generate a list of empty fields and choose one of them.
     int counter = 0;
     int* row = malloc(16*sizeof(int));
     int* cell = malloc(16*sizeof(int));
@@ -67,6 +69,7 @@ void refreshScreen() {
         }
         xrow++;
     }
+    mvprintw(maxX-1,0,"Score: %i",score);
     refresh();
 }
 
@@ -120,16 +123,16 @@ int main(int argc, char **argv) {
         result = 0;
         switch (ch) {
             case KEY_UP:
-            result = moveUp(playingField);
+            result = moveUp(playingField,&score);
             break;
             case KEY_DOWN:
-            result = moveDown(playingField);
+            result = moveDown(playingField,&score);
             break;
             case KEY_LEFT:
-            result = moveLeft(playingField);
+            result = moveLeft(playingField,&score);
             break;
             case KEY_RIGHT:
-            result = moveRight(playingField);
+            result = moveRight(playingField,&score);
             break;
             default:
             break;

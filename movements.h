@@ -9,10 +9,12 @@
  * Define all needed commands for shifting tiles in playingfield.
  */
 
-int moveLeft();
+#include <ncurses.h>
 
-int moveRight();
+int moveLeft(int **playingField, long long int *score);
 
-int moveUp();
+int moveRight(int **playingField, long long int *score);
 
-int moveDown();
+int moveUp(int **playingField, long long int *score);
+
+int moveDown(int **playingField, long long int *score);

@@ -1,6 +1,6 @@
 #include "movements.h"
 
-int moveLeft(int** playingField) {
+int moveLeft(int** playingField, long long int *score) {
     int moved = 1;
     int maxX, maxY;
     int result = 0;
@@ -23,6 +23,7 @@ int moveLeft(int** playingField) {
     for (int row = 0; row < 4; row++) {
         for (int col = 0; col < 3; col++) {
             if ((playingField[row][col] == playingField[row][col+1]) && (playingField[row][col] > 0)) {
+                *score += playingField[row][col]*2;
                 playingField[row][col] = playingField[row][col]*2;
                 playingField[row][col+1] = 0;
                 result = 1;
@@ -50,7 +51,7 @@ int moveLeft(int** playingField) {
     return result;
 }
 
-int moveRight(int **playingField) {
+int moveRight(int **playingField, long long int *score) {
     int moved = 1;
     int result = 0;
     // First of all, move all tiles to the left, replace 0-fields with value next to them
@@ -72,6 +73,7 @@ int moveRight(int **playingField) {
     for (int row = 0; row < 4; row++) {
         for (int col = 3; col > 0; col--) {
             if ((playingField[row][col] == playingField[row][col-1]) && (playingField[row][col] > 0)) {
+                *score += playingField[row][col]*2;
                 playingField[row][col] = playingField[row][col]*2;
                 playingField[row][col-1] = 0;
                 result = 1;
@@ -99,7 +101,7 @@ int moveRight(int **playingField) {
     return result;
 }
 
-int moveUp(int ** playingField) {
+int moveUp(int ** playingField, long long int *score) {
     int result = 0;
     int moved = 1;
     // First of all, move all tiles to the left, replace 0-fields with value next to them
@@ -121,6 +123,7 @@ int moveUp(int ** playingField) {
     for (int row = 0; row < 3; row++) {
         for (int col = 0; col < 4; col++) {
             if ((playingField[row+1][col] == playingField[row][col]) && (playingField[row][col] > 0)) {
+                *score += playingField[row][col]*2;
                 playingField[row][col] = playingField[row][col]*2;
                 playingField[row+1][col] = 0;
                 result = 1;
@@ -147,7 +150,7 @@ int moveUp(int ** playingField) {
     return result;
 }
 
-int moveDown(int **playingField) {
+int moveDown(int **playingField, long long int *score) {
     int result = 0;
     int moved = 1;
     // First of all, move all tiles to the left, replace 0-fields with value next to them
@@ -169,6 +172,7 @@ int moveDown(int **playingField) {
     for (int row = 3; row > 0; row--) {
         for (int col = 0; col < 4; col++) {
             if ((playingField[row][col] == playingField[row-1][col]) && (playingField[row][col] > 0)) {
+                *score += playingField[row][col]*2;
                 playingField[row][col] = playingField[row-1][col]*2;
                 playingField[row-1][col] = 0;
                 result = 1;
