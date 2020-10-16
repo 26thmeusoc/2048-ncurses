@@ -1,5 +1,9 @@
+#include "movements.h"
+
 int moveLeft(int** playingField) {
     int moved = 1;
+    int maxX, maxY;
+    getmaxyx(stdscr,maxX,maxY);
     // First of all, move all tiles to the left, replace 0-fields with value next to them
     while (moved > 0) { // As long as there was a move last time
         moved=0;
@@ -23,7 +27,7 @@ int moveLeft(int** playingField) {
             }
         }
     }
-    
+    moved=1;
     // Remove 0s again
     while (moved > 0) { // As long as there was a move last time
         moved = 0;
@@ -66,7 +70,7 @@ int moveRight(int **playingField) {
             }
         }
     }
-    
+    moved=1;
     // Remove 0s again
     while (moved > 0) { // As long as there was a move last time
         moved = 0;
@@ -109,7 +113,7 @@ int moveUp(int ** playingField) {
             }
         }
     }
-    
+    moved=1;
     // Remove 0s again
     while (moved > 0) { // As long as there was a move last time
         moved = 0;
@@ -152,7 +156,7 @@ int moveDown(int **playingField) {
             }
         }
     }
-    
+    moved=1;
     // Remove 0s again
     while (moved > 0) { // As long as there was a move last time
         moved = 0;
