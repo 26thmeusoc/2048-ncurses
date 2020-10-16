@@ -22,7 +22,7 @@ int moveLeft(int** playingField) {
     // Now check if there can be any combinations made!
     for (int row = 0; row < 4; row++) {
         for (int col = 0; col < 3; col++) {
-            if (playingField[row][col] == playingField[row][col+1]) {
+            if ((playingField[row][col] == playingField[row][col+1]) && (playingField[row][col] > 0)) {
                 playingField[row][col] = playingField[row][col]*2;
                 playingField[row][col+1] = 0;
                 result = 1;
@@ -71,7 +71,7 @@ int moveRight(int **playingField) {
     // Now check if there can be any combinations made!
     for (int row = 0; row < 4; row++) {
         for (int col = 3; col > 0; col--) {
-            if (playingField[row][col] == playingField[row][col-1]) {
+            if ((playingField[row][col] == playingField[row][col-1]) && (playingField[row][col] > 0)) {
                 playingField[row][col] = playingField[row][col]*2;
                 playingField[row][col-1] = 0;
                 result = 1;
@@ -120,7 +120,7 @@ int moveUp(int ** playingField) {
     // Now check if there can be any combinations made!
     for (int row = 0; row < 3; row++) {
         for (int col = 0; col < 4; col++) {
-            if (playingField[row+1][col] == playingField[row][col]) {
+            if ((playingField[row+1][col] == playingField[row][col]) && (playingField[row][col] > 0)) {
                 playingField[row][col] = playingField[row][col]*2;
                 playingField[row+1][col] = 0;
                 result = 1;
@@ -168,7 +168,7 @@ int moveDown(int **playingField) {
     // Now check if there can be any combinations made!
     for (int row = 3; row > 0; row--) {
         for (int col = 0; col < 4; col++) {
-            if (playingField[row][col] == playingField[row-1][col]) {
+            if ((playingField[row][col] == playingField[row-1][col]) && (playingField[row][col] > 0)) {
                 playingField[row][col] = playingField[row-1][col]*2;
                 playingField[row-1][col] = 0;
                 result = 1;
