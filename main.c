@@ -26,6 +26,29 @@ int TILES = 4; // Size of Playingfield, will be TILESxTILES
 
 int** playingField;
 long long int score = 0;
+
+int movePossible(int **playingField) {
+    // 1. Is there at least one empty field left?
+    for (int r = 0; r < 4; r++) {
+        for (int c = 0; c < 4; c++) {
+            if (playingField[r][c] == 0) {
+                return 1; // Jep! Quit this function already.
+            }
+        }
+    }
+    
+    // 2. Can two neighbouring fields get combined?
+    for (int r = 0; r < 3; r++) {
+        for (int c = 0; c < 3; c++) {
+            if (playingField[r][c] == playingField[r][c+1] || playingField[r][c] == playingField[r+1][c]) {
+                return 1; // Jep! Quit this function already.
+            }
+        }
+    }
+    
+    return 0;
+}
+
 void fillEmptyField(int **playingField) {
     // Instead of simply searching for empty fields until one is found (can take a very long time!), generate a list of empty fields and choose one of them.
     int counter = 0;
@@ -119,7 +142,8 @@ int main(int argc, char **argv) {
     noecho();
     keypad(main,TRUE);
     int result;
-    while((ch = getch()) != 'q'){
+    int movePoss = 1;
+    while((ch = getch()) != 'q' && movePossible(playingField)){
         result = 0;
         switch (ch) {
             case KEY_UP:
@@ -143,6 +167,12 @@ int main(int argc, char **argv) {
             refreshScreen();
         }
     }
+    int maxX, maxY;
+    getmaxyx(stdscr,maxX,maxY);
+    mvprintw(((maxX)/2+4),maxY/2,"Game Over");
+    mvprintw(((maxX)/2+5),maxY/2,"Score was: %i",score);
+    mvprintw(((maxX)/2+7),maxY/2,"Press 'q' to quit.",score);
+    while (getch() != 'q');
     endwin(); // End this, redisplay old screen.
     return EXIT_SUCCESS; // Goodbye!
 }
