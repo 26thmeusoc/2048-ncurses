@@ -5,7 +5,7 @@
  * Web: http://github.com/26thmeusoc/2048-ncurses
  * 
  * File created:  14.10.2020
- * Last modified: 14.10.2020
+ * Last modified: 15.10.2020
  * 
  * Description:
  * This code is a C reimplementation of Gabriele Cirullis JavaScript
@@ -171,7 +171,7 @@ int main(int argc, char **argv) {
     getmaxyx(stdscr,maxX,maxY);
     mvprintw(((maxX)/2+4),maxY/2,"Game Over");
     mvprintw(((maxX)/2+5),maxY/2,"Score was: %i",score);
-    mvprintw(((maxX)/2+7),maxY/2,"Press 'q' to quit.",score);
+    mvprintw(((maxX)/2+7),maxY/2,"Press 'q' to quit.");
     while (getch() != 'q');
     endwin(); // End this, redisplay old screen.
     return EXIT_SUCCESS; // Goodbye!
