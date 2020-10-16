@@ -13,7 +13,6 @@
  * a UI. It is created to get the highest possible compability across all
  * Operating Systems.
  */
-
 #include <stdlib.h> // For Standards, random
 #include <stdio.h> // For Output
 #include <time.h>
@@ -22,9 +21,22 @@
 
 #include "movements.h" // For Tileshifting
 
-#define TILES 4 // Size of Playingfield, will be TILESxTILES
+int TILES = 4; // Size of Playingfield, will be TILESxTILES
 
 int** playingField;
+
+void fillEmptyField(int **playingField) {
+    int added = 0;
+    while (!added) {
+        srand(time(NULL));
+        int randX = rand()%TILES;
+        int randY = rand()%TILES;
+        if (playingField[randX][randY] == 0) {
+            playingField[randX][randY] = 2;
+            added = 1;
+        }
+    }
+}
 
 void refreshScreen() {
     int maxX, maxY;
@@ -92,7 +104,23 @@ int main(int argc, char **argv) {
     }
     initscr();
     refreshScreen();
+    getch();
+    moveLeft(playingField);
+    fillEmptyField(playingField);
+    refreshScreen();
+    getch();
+    moveRight(playingField);
+    fillEmptyField(playingField);
+    refreshScreen();
     getch(); // Wait here, display this screen
+    moveUp(playingField);
+    fillEmptyField(playingField);
+    refreshScreen();
+    getch();
+    moveDown(playingField);
+    fillEmptyField(playingField);
+    refreshScreen();
+    getch();
     endwin(); // End this, redisplay old screen.
     return EXIT_SUCCESS; // Goodbye!
 }
