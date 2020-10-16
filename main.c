@@ -107,28 +107,30 @@ int main(int argc, char **argv) {
     int ch = ' ';
     noecho();
     keypad(main,TRUE);
+    int result;
     while((ch = getch()) != 'q'){
+        result = 0;
         switch (ch) {
             case KEY_UP:
-            moveUp(playingField);
-            fillEmptyField(playingField);
+            result = moveUp(playingField);
             break;
             case KEY_DOWN:
-            moveDown(playingField);
-            fillEmptyField(playingField);
+            result = moveDown(playingField);
             break;
             case KEY_LEFT:
-            moveLeft(playingField);
-            fillEmptyField(playingField);
+            result = moveLeft(playingField);
             break;
             case KEY_RIGHT:
-            moveRight(playingField);
-            fillEmptyField(playingField);
+            result = moveRight(playingField);
             break;
             default:
             break;
         }
-        refreshScreen();
+        
+        if (result > 0) {
+            fillEmptyField(playingField);
+            refreshScreen();
+        }
     }
     endwin(); // End this, redisplay old screen.
     return EXIT_SUCCESS; // Goodbye!
