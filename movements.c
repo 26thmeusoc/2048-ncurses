@@ -1,8 +1,16 @@
 #include "movements.h"
 
 /*
- *
+ * How this works:
+ * 
+ * All functions are implemented like BubbleSort:
+ * 1. Compare all cells (direction is given with shifting direction).
+ *    [ 4 ] -?-> [ 0 ]
+ * 2. If a switch has to be made, do it!
+ *    [ 0 ]      [ 4 ]
+ * 3. Compare all fields again as long as switches were made
  */
+
 
 int moveLeft(int** playingField, long long int *score) {
     int moved = 1; // Remember whether there was a move (for loops)
