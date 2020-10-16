@@ -102,25 +102,34 @@ int main(int argc, char **argv) {
     if (initializePlayingField() > 0) {
         return EXIT_FAILURE; // BAIL! BAIL! BAIL!
     }
-    initscr();
+    WINDOW *main = initscr();
     refreshScreen();
-    getch();
-    moveLeft(playingField);
-    fillEmptyField(playingField);
-    refreshScreen();
-    getch();
-    moveRight(playingField);
-    fillEmptyField(playingField);
-    refreshScreen();
-    getch(); // Wait here, display this screen
-    moveUp(playingField);
-    fillEmptyField(playingField);
-    refreshScreen();
-    getch();
-    moveDown(playingField);
-    fillEmptyField(playingField);
-    refreshScreen();
-    getch();
+    int ch = ' ';
+    noecho();
+    keypad(main,TRUE);
+    while((ch = getch()) != 'q'){
+        switch (ch) {
+            case KEY_UP:
+            moveUp(playingField);
+            fillEmptyField(playingField);
+            break;
+            case KEY_DOWN:
+            moveDown(playingField);
+            fillEmptyField(playingField);
+            break;
+            case KEY_LEFT:
+            moveLeft(playingField);
+            fillEmptyField(playingField);
+            break;
+            case KEY_RIGHT:
+            moveRight(playingField);
+            fillEmptyField(playingField);
+            break;
+            default:
+            break;
+        }
+        refreshScreen();
+    }
     endwin(); // End this, redisplay old screen.
     return EXIT_SUCCESS; // Goodbye!
 }
