@@ -92,11 +92,11 @@ void fillEmptyField(int **playingField) {
     
     int field = rand() % counter; // Select one random field
     
-    // With a chance of 3:1
-    if ((rand()%4) < 3) {
-        // Set value of this field with 2
+    // With a chance of 5:2 ...
+    if ((rand()%7) < 5) {
+        // ... set value of this field with 2
         playingField[row[field]][cell[field]] = 2;
-    } else { // Set value to 4
+    } else { // ... set value to 4
         playingField[row[field]][cell[field]] = 4;
     }
     free(row); // Free both lists, so we don't leak memory
