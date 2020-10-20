@@ -115,12 +115,13 @@ void refreshScreen() {
     // Display playingfield, don't fill it with numbers now
     int xrow = 0;
     int ycol = 0;
-    
+    int borderx=0;
+    int bordery=0;
     for (int row = 0; row < TILES; row++) { // For each row...
         ycol = 0;
         for (int col = 0; col < TILES; col++) { // ...and each column
             mvprintw(xrow,ycol,"[    ]"); // Draw a small box
-            
+            getyx(stdscr,bordery,borderx);
             // Write each value backwards
             int num = 4;
             int numI = playingField[row][col]; // Select field
@@ -130,7 +131,7 @@ void refreshScreen() {
                 num--; // Get one character to the left
                 numI=numI/10; // Div value by 10 (shift this number)
             }
-            ycol+=maxY/4; // Go to the next cell 
+            ycol=borderx; // Go to the next cell 
         }
         xrow++; // Go to the next row
     }
