@@ -135,8 +135,12 @@ void refreshScreen() {
         }
         xrow++; // Go to the next row
     }
-    mvprintw(maxX-1,0,"Score: %i",score); // Display Scorerow at the end of the screen
+    mvprintw(maxX-2,0,"Score: %i",score); // Display Scorerow at the end of the screen
     refresh(); // Redraw screen
+}
+
+int generateColorPairs() {
+    return 0;
 }
 
 /**
@@ -225,6 +229,20 @@ int main(int argc, char **argv) {
             break;
             case KEY_RIGHT:
             result = moveRight(playingField,&score);
+            break;
+            case KEY_F(9):
+            clear();
+            mvprintw(3,2,"2048-ncurses");
+            mvprintw(4,2,"A reimplementation of 2048 by:");
+            mvprintw(5,6,"Gabriele Cirulli et al.");
+            mvprintw(6,6,"http://gabrielecirulli.github.io/2048/");
+            mvprintw(8,2,"Code:");
+            mvprintw(9,6,"Dirk Braun");
+            mvprintw(10,6,"https://github.com/26thmeusoc/2048-ncurses/");
+            mvprintw(12,2,"Published under GNU Public License v3");
+            getch();
+            clear();
+            refreshScreen();
             break;
             default:
             break;
