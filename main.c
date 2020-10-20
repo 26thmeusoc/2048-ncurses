@@ -65,7 +65,7 @@ int movePossible(int **playingField) {
  * 
  * Searches the playing field for an empty field and adds a new
  * value to it.
- * 
+ *
  * @param playingField
  */
 void fillEmptyField(int **playingField) {
@@ -115,12 +115,13 @@ void refreshScreen() {
     // Display playingfield, don't fill it with numbers now
     int xrow = 0;
     int ycol = 0;
-    
+    int borderx=0;
+    int bordery=0;
     for (int row = 0; row < TILES; row++) { // For each row...
         ycol = 0;
         for (int col = 0; col < TILES; col++) { // ...and each column
             mvprintw(xrow,ycol,"[    ]"); // Draw a small box
-            
+            getyx(stdscr,bordery,borderx);
             // Write each value backwards
             int num = 4;
             int numI = playingField[row][col]; // Select field
@@ -130,12 +131,16 @@ void refreshScreen() {
                 num--; // Get one character to the left
                 numI=numI/10; // Div value by 10 (shift this number)
             }
-            ycol+=maxY/4; // Go to the next cell 
+            ycol=borderx; // Go to the next cell 
         }
         xrow++; // Go to the next row
     }
-    mvprintw(maxX-1,0,"Score: %i",score); // Display Scorerow at the end of the screen
+    mvprintw(maxX-2,0,"Score: %i",score); // Display Scorerow at the end of the screen
     refresh(); // Redraw screen
+}
+
+int generateColorPairs() {
+    return 0;
 }
 
 /**
@@ -198,6 +203,7 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE; // BAIL! BAIL! BAIL!
     }
     WINDOW *main = initscr(); // Initialize ncurses
+    curs_set(0); // Hide cursor
     refreshScreen(); // Redraw Screen
     int ch = ' '; // Remember last pressed key
     noecho(); // Don't show last pressed key on screen
@@ -224,6 +230,20 @@ int main(int argc, char **argv) {
             case KEY_RIGHT:
             result = moveRight(playingField,&score);
             break;
+            case KEY_F(9):
+            clear();
+            mvprintw(3,2,"2048-ncurses");
+            mvprintw(4,2,"A reimplementation of 2048 by:");
+            mvprintw(5,6,"Gabriele Cirulli et al.");
+            mvprintw(6,6,"http://gabrielecirulli.github.io/2048/");
+            mvprintw(8,2,"Code:");
+            mvprintw(9,6,"Dirk Braun");
+            mvprintw(10,6,"https://github.com/26thmeusoc/2048-ncurses/");
+            mvprintw(12,2,"Published under GNU Public License v3");
+            getch();
+            clear();
+            refreshScreen();
+            break;
             default:
             break;
         }
@@ -234,6 +254,7 @@ int main(int argc, char **argv) {
             refreshScreen(); // Redraw screen
         }
     }
+    refreshScreen();
     // Get the current screendimensions
     int maxX, maxY;
     getmaxyx(stdscr,maxX,maxY);
