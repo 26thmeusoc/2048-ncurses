@@ -5,7 +5,7 @@
  * Web: http://github.com/26thmeusoc/2048-ncurses
  * 
  * File created:  14.10.2020
- * Last modified: 16.10.2020
+ * Last modified: 20.10.2020
  * 
  * Description:
  * This code is a C reimplementation of Gabriele Cirullis JavaScript
