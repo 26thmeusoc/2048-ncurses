@@ -254,6 +254,7 @@ int main(int argc, char **argv) {
             refreshScreen(); // Redraw screen
         }
     }
+    refreshScreen();
     // Get the current screendimensions
     int maxX, maxY;
     getmaxyx(stdscr,maxX,maxY);
