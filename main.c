@@ -65,7 +65,7 @@ int movePossible(int **playingField) {
  * 
  * Searches the playing field for an empty field and adds a new
  * value to it.
- * 
+ *
  * @param playingField
  */
 void fillEmptyField(int **playingField) {
@@ -199,6 +199,7 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE; // BAIL! BAIL! BAIL!
     }
     WINDOW *main = initscr(); // Initialize ncurses
+    curs_set(0); // Hide cursor
     refreshScreen(); // Redraw Screen
     int ch = ' '; // Remember last pressed key
     noecho(); // Don't show last pressed key on screen
