@@ -1,7 +1,7 @@
 # Flags for Compiler and Linker
-CFLAGS =
-LDFLAGS = 
+AM_CFLAGS =
+AM_LDFLAGS = 
 
 # Target
 bin_PROGRAMS = 2048-ncurses
-2048_nucurses_SOURCES = main.c game.c movements.c
+2048_ncurses_SOURCES = main.c game.c movements.c
