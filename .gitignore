@@ -1,3 +1,6 @@
-2048ncurses
+*/2048-ncurses
 *.log
 *.cache
+*.o
+Makefile
+.deps
