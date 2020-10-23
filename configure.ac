@@ -4,6 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([2048-ncurses], [0.0.1])
 AC_CONFIG_SRCDIR([src/game.h])
+AM_INIT_AUTOMAKE
 
 # Not needed right now
 #AC_CONFIG_HEADERS([config.h])
@@ -21,4 +22,4 @@ AC_CHECK_HEADERS([stdlib.h ncurses.h math.h])
 # Checks for library functions.
 AC_FUNC_MALLOC
 
-AC_OUTPUT
+AC_OUTPUT(Makefile src/Makefile)
