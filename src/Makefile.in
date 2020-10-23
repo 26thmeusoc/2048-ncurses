@@ -249,7 +249,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # Flags for Compiler and Linker
-AM_CFLAGS = -lncurses
+AM_CFLAGS = 
 AM_LDFLAGS = 
 2048_ncurses_SOURCES = main.c game.c movements.c
 all: all-am

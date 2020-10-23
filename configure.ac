@@ -13,6 +13,7 @@ AM_INIT_AUTOMAKE
 AC_PROG_CC
 
 # Checks for libraries.
+AC_SEARCH_LIBS(mvprintw,ncurses,[],[AC_ERROR([ncurses is required.])])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h ncurses.h math.h])

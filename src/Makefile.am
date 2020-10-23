@@ -1,5 +1,5 @@
 # Flags for Compiler and Linker
-AM_CFLAGS =-lncurses
+AM_CFLAGS =
 AM_LDFLAGS = 
 
 # Target
