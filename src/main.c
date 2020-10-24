@@ -37,49 +37,11 @@
 
 #include "game.h" // For game internals
 #include "movements.h" // For Tileshifting
+#include "uinterface.h" //
 
 int TILES = 4; // Size of Playingfield, will be TILESxTILES
-
 int** playingField; // Save the current playing field in here
 long long int score = 0; // Save the current player score in here
-
-
-/**
- * Redraw fields on screen.
- * 
- * Redraw the complete playingfield on screen.
- */
-void refreshScreen() {
-    int maxX, maxY; // Save screensize here.
-    getmaxyx(stdscr,maxX,maxY); // Get screen dimensions
-    
-    // Display playingfield, don't fill it with numbers now
-    int xrow = 0;
-    int ycol = 0;
-    int borderx=0;
-    int bordery=0;
-    for (int row = 0; row < TILES; row++) { // For each row...
-        ycol = 0;
-        for (int col = 0; col < TILES; col++) { // ...and each column
-            mvprintw(xrow,ycol,"[    ]"); // Draw a small box
-            getyx(stdscr,bordery,borderx);
-            // Write each value backwards
-            int num = 4;
-            int numI = playingField[row][col]; // Select field
-            while (numI > 0) { // As long as not all numbers have been printed
-                // Display the current number
-                mvprintw(xrow,ycol+num,"%i",numI%10);
-                num--; // Get one character to the left
-                numI=numI/10; // Div value by 10 (shift this number)
-            }
-            ycol=borderx; // Go to the next cell 
-        }
-        xrow++; // Go to the next row
-    }
-    mvprintw(maxX-2,0,"Score: %i",score); // Display Scorerow at the end of the screen
-    refresh(); // Redraw screen
-}
-
 int generateColorPairs() {
     return 0;
 }
@@ -145,7 +107,7 @@ int main(int argc, char **argv) {
     }
     WINDOW *main = initscr(); // Initialize ncurses
     curs_set(0); // Hide cursor
-    refreshScreen(); // Redraw Screen
+    refreshScreen(playingField,score); // Redraw Screen
     int ch = ' '; // Remember last pressed key
     noecho(); // Don't show last pressed key on screen
     keypad(main,TRUE); // Allow scan for Arrowkeys
@@ -183,7 +145,7 @@ int main(int argc, char **argv) {
             mvprintw(12,2,"Published under GNU Public License v3");
             getch();
             clear();
-            refreshScreen();
+            refreshScreen(playingField,score);
             break;
             default:
             break;
@@ -192,10 +154,10 @@ int main(int argc, char **argv) {
         // Was the last move useful (some change in playingField)
         if (result > 0) { // Yes, add a new value to playingField
             fillEmptyField(playingField);
-            refreshScreen(); // Redraw screen
+            refreshScreen(playingField,score); // Redraw screen
         }
     }
-    refreshScreen();
+    refreshScreen(playingField,score);
     // Get the current screendimensions
     int maxX, maxY;
     getmaxyx(stdscr,maxX,maxY);
