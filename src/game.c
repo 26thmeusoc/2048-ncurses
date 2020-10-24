@@ -25,6 +25,9 @@
 
 # include "game.h"
 
+// Define a Data-Construct here. Every x has a corresponding y,
+// so remember both.
+// Afterwards create a new datatype out of it, so it easier to use.
 typedef struct _gameCoords {
     unsigned int xCoord;
     unsigned int yCoord;
@@ -84,5 +87,5 @@ void fillEmptyField(int **playingField) {
     } else { // ... set value to 4
         playingField[position[field].xCoord][position[field].yCoord] = 4;
     }
-    free(position); // Free both lists, so we don't leak memory
+    free(position); // Free list, so we don't leak memory with every move
 }
