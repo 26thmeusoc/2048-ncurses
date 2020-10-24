@@ -25,6 +25,11 @@
 
 # include "game.h"
 
+typedef struct _gameCoords {
+    unsigned int xCoord;
+    unsigned int yCoord;
+} gameCoords;
+
 int movePossible(int **playingField) {
     // 1. Is there at least one empty field left?
     for (int r = 0; r < 4; r++) { // Check each row
@@ -58,13 +63,13 @@ void fillEmptyField(int **playingField) {
     /* Generate two lists, remember which row and column combination,
      * sizes have to be number of all available fields.
      */
-    int* row = malloc(16*sizeof(int));
-    int* cell = malloc(16*sizeof(int));
+    gameCoords* position = malloc(16*sizeof(gameCoords));
+    //int* cell = malloc(16*sizeof(gameCoords));
     for (int r = 0; r < 4; r++) { // For every row
         for (int c = 0; c < 4; c++) { // For every column
             if (playingField[r][c] == 0) { // Is this field empty?
-                row[counter] = r; // Yes, remember row...
-                cell[counter] = c; // ...and column coordinate
+                position[counter].xCoord = r; // Yes, remember row...
+                position[counter].yCoord = c; // ...and column coordinate
                 counter++; // Increase counter
             }
         }
@@ -75,10 +80,9 @@ void fillEmptyField(int **playingField) {
     // With a chance of 5:2 ...
     if ((rand()%7) < 5) {
         // ... set value of this field with 2
-        playingField[row[field]][cell[field]] = 2;
+        playingField[position[field].xCoord][position[field].yCoord] = 2;
     } else { // ... set value to 4
-        playingField[row[field]][cell[field]] = 4;
+        playingField[position[field].xCoord][position[field].yCoord] = 4;
     }
-    free(row); // Free both lists, so we don't leak memory
-    free(cell);
+    free(position); // Free both lists, so we don't leak memory
 }
