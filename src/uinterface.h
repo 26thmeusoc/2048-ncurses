@@ -21,4 +21,15 @@
  * 
  * You should have received a copy of the GNU General Public License
  * along with 2048-ncurses.  If not, see  <https://www.gnu.org/licenses/>.
+ * 
+ * Define functions for displaying the game.
  */
+
+#include <ncurses.h>
+
+/**
+ * Redraw fields on screen.
+ * 
+ * Redraw the complete playingfield on screen.
+ */
+void refreshScreen(int** playingField, long long int score);
