@@ -103,6 +103,7 @@ int moveRight(int **playingField, long long int *score) {
                 if ((playingField[row][col] == 0) && (playingField[row][col-1] > 0)) { // Is the current field a 0 and has a field with value > 0 to the right?
                     // Yes! Switch those fields
                     playingField[row][col] = playingField[row][col-1];
+                    playingField[row][col-1] = 0;
                     moved = 1; // Remember, there was a loop iteration in this move
                     result = 1; // There was at least one useful move done (moved a 0 field to the left) in this call, remember it for later
                 }
