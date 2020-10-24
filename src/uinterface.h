@@ -26,6 +26,15 @@
  */
 
 #include <ncurses.h>
+#include <stdlib.h>
+
+typedef struct _screenSizes {
+    int maxWidth;
+    int maxHeight;
+} screenSizes;
+
+
+int cmpSize();
 
 /**
  * Redraw fields on screen.

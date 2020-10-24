@@ -27,10 +27,29 @@
 
 #include "uinterface.h"
 
+screenSizes *lastSizes;
+
+int cmpSize() {
+    int newX, newY;
+    getmaxyx(stdscr,newX,newY);
+    if ((lastSizes == NULL)) {
+        lastSizes = (screenSizes*) malloc(sizeof(screenSizes));
+        lastSizes->maxWidth = newY;
+        lastSizes->maxHeight = newX;
+    } else if (lastSizes->maxWidth != newY || lastSizes->maxHeight != newX) {
+        lastSizes->maxWidth = newY;
+        lastSizes->maxHeight = newX;
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 void refreshScreen(int **playingField, long long int score) {
     int maxX, maxY; // Save screensize here.
     getmaxyx(stdscr,maxX,maxY); // Get screen dimensions
-    
+    int result = cmpSize();
+    mvprintw(lastSizes->maxHeight-1,0,"Size is: x: %i, y: %i",lastSizes->maxWidth,lastSizes->maxHeight);
     // Display playingfield, don't fill it with numbers now
     int xrow = 0;
     int ycol = 0;
