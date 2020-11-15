@@ -41,4 +41,4 @@ int cmpSize();
  * 
  * Redraw the complete playingfield on screen.
  */
-void refreshScreen(int** playingField, long long int score);
+void refreshScreen(tile_t** playingField, long long int score);

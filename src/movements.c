@@ -34,7 +34,7 @@
 
 #include "movements.h"
 
-int moveLeft(int** playingField, long long int *score) {
+int moveLeft(tile_t** playingField, long long int *score) {
     int moved = 1; // Remember whether there was a move (for loops)
     int maxX, maxY; // Remember screendimensions
     int result = 0; // Was there a useful move done?
@@ -43,9 +43,9 @@ int moveLeft(int** playingField, long long int *score) {
         moved=0; // Reset moved-variable, so we can check again, whether there was something done in this loop
         for (int row = 0; row < 4; row++) { // For every row
             for (int col = 0; col < 3; col++) { // in each column
-                if ((playingField[row][col] == 0) && (playingField[row][col+1] > 0)) { // Is the current field a 0 and has a field with value > 0 to the right?
+                if ((playingField[row][col].value == 0) && (playingField[row][col+1] > 0)) { // Is the current field a 0 and has a field with value > 0 to the right?
                     // Yes! Switch those fields
-                    playingField[row][col] = playingField[row][col+1];
+                    playingField[row][col].value = playingField[row][col+1].value;
                     playingField[row][col+1] = 0;
                     moved = 1; // Remember, there was a loop iteration in this move
                     result = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
@@ -92,7 +92,7 @@ int moveLeft(int** playingField, long long int *score) {
     return result;
 }
 
-int moveRight(int **playingField, long long int *score) {
+int moveRight(tile_t **playingField, long long int *score) {
     int moved = 1; // Remember whether there was a move (for loops)
     int result = 0; // Was there a useful move done?
     // First of all, move all tiles to the left, replace 0-fields with value next to them
@@ -149,7 +149,7 @@ int moveRight(int **playingField, long long int *score) {
     return result;
 }
 
-int moveUp(int ** playingField, long long int *score) {
+int moveUp(tile_t ** playingField, long long int *score) {
     int result = 0; // Was there a useful move done?
     int moved = 1; // Remember whether there was a move (for loops)
     // First of all, move all tiles to the left, replace 0-fields with value next to them
@@ -207,7 +207,7 @@ int moveUp(int ** playingField, long long int *score) {
     return result;
 }
 
-int moveDown(int **playingField, long long int *score) {
+int moveDown(tile_t **playingField, long long int *score) {
     int result = 0; // Was there a useful move done?
     int moved = 1; // Remember whether there was a move (for loops)
     // First of all, move all tiles to the left, replace 0-fields with value next to them

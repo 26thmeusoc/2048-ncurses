@@ -31,9 +31,15 @@
 typedef struct _gameCoords {
     unsigned int xCoord;
     unsigned int yCoord;
-} gameCoords;
+} gameCoords_t;
 
-int movePossible(int **playingField) {
+
+typedef struct _game {
+    unsigned int moves;
+    unsigned int score;
+} game_t;
+
+int movePossible(tile_t **playingField) {
     // 1. Is there at least one empty field left?
     for (int r = 0; r < 4; r++) { // Check each row
         for (int c = 0; c < 4; c++) { // Check each column
@@ -56,7 +62,7 @@ int movePossible(int **playingField) {
     return 0;
 }
 
-void fillEmptyField(int **playingField) {
+void fillEmptyField(tile_t **playingField) {
     /* Instead of simply randomly searching for empty fields until
      * one is found (can take a very long time!), generate a list
      * of empty fields and choose one of them.
@@ -66,7 +72,7 @@ void fillEmptyField(int **playingField) {
     /* Generate two lists, remember which row and column combination,
      * sizes have to be number of all available fields.
      */
-    gameCoords* position = malloc(16*sizeof(gameCoords));
+    gameCoords_t* position = malloc(16*sizeof(gameCoords_t));
     //int* cell = malloc(16*sizeof(gameCoords));
     for (int r = 0; r < 4; r++) { // For every row
         for (int c = 0; c < 4; c++) { // For every column

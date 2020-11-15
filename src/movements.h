@@ -36,7 +36,7 @@
  * @param score Current userscore.
  * @return 1 when move changed something in playingField, otherwise 0
  */
-int moveLeft(int **playingField, long long int *score);
+int moveLeft(tile_t **playingField, long long int *score);
 
 /**
  * Shift playingField to the right.
@@ -48,7 +48,7 @@ int moveLeft(int **playingField, long long int *score);
  * @param score Current userscore.
  * @return 1 when move changed something in playingField, otherwise 0
  */
-int moveRight(int **playingField, long long int *score);
+int moveRight(tile_t **playingField, long long int *score);
 
 /**
  * Shift playingField up.
@@ -60,7 +60,7 @@ int moveRight(int **playingField, long long int *score);
  * @param score Current userscore.
  * @return 1 when move changed something in playingField, otherwise 0
  */
-int moveUp(int **playingField, long long int *score);
+int moveUp(tile_t **playingField, long long int *score);
 
 /**
  * Shift playingField to the up.
@@ -72,4 +72,4 @@ int moveUp(int **playingField, long long int *score);
  * @param score Current userscore.
  * @return 1 when move changed something in playingField, otherwise 0
  */
-int moveDown(int **playingField, long long int *score);
+int moveDown(tile_t **playingField, long long int *score);

@@ -40,7 +40,7 @@
 #include "uinterface.h" //
 
 int TILES = 4; // Size of Playingfield, will be TILESxTILES
-int** playingField; // Save the current playing field in here
+tile_t** playingField; // Save the current playing field in here
 long long int score = 0; // Save the current player score in here
 int generateColorPairs() {
     return 0;
@@ -56,7 +56,7 @@ int generateColorPairs() {
  */
 int initializePlayingField() {
     // Generate Rows in this game
-    if ((playingField = malloc(TILES*(sizeof(int*)))) == NULL) {
+    if ((playingField = malloc(TILES*(sizeof(tile_t*)))) == NULL) {
         // Something went wrong. Show error message
         printf("Could not allocate memory for game! Exiting!");
         // Exit this function with an Error-Code
@@ -65,7 +65,7 @@ int initializePlayingField() {
     
     // Generate Colums for each row
     for (int i = 0; i < TILES; i++) {
-        if ((playingField[i] = malloc(TILES*(sizeof(int*)))) == NULL) {
+        if ((playingField[i] = malloc(TILES*(sizeof(tile_t*)))) == NULL) {
             // Something went wrong. Show error message
             printf("Could not allocate memory for game! Exiting!");
             // Exit sthis function with an Error-Code
@@ -75,7 +75,7 @@ int initializePlayingField() {
     // Set each field value to zero
     for (int r = 0; r < TILES; r++) {
         for (int c = 0; c < TILES; c++) {
-            playingField[r][c] = 0;
+            playingField[r][c].value = 0;
         }
     }
     
@@ -88,14 +88,14 @@ int initializePlayingField() {
     
     // Set this field value to two.
     // Playingfield is empty, so no extra check is needed
-    playingField[randX][randY] = 2;
+    playingField[randX][randY].value = 2;
     // Repeat this search, as long as the selected field is not empty
-    while (playingField[randX][randY] > 0) {
+    while (playingField[randX][randY].value > 0) {
         // Make sure we don't generate the second value on the first one 
         randX = rand()%TILES; // Select a new random row
         randY = rand()%TILES; // Select a new random column
     }
-    playingField[randX][randY] = 2; // Set this new fields value to 2.
+    playingField[randX][randY].value = 2; // Set this new fields value to 2.
     
     // Everything went fine! Exit function and return 0.
     return 0;

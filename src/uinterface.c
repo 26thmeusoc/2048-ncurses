@@ -45,7 +45,7 @@ int cmpSize() {
     }
 }
 
-void refreshScreen(int **playingField, long long int score) {
+void refreshScreen(tile_t **playingField, long long int score) {
     int maxX, maxY; // Save screensize here.
     getmaxyx(stdscr,maxX,maxY); // Get screen dimensions
     int result = cmpSize();

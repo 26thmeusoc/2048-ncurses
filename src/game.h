@@ -26,6 +26,11 @@
  * along with 2048-ncurses.  If not, see  <https://www.gnu.org/licenses/>.
  */
 
+typedef struct _tile {
+    int value;
+    int colorCode;
+} tile_t;
+
 /**
  * Check whether a move is still possible
  * 
@@ -36,7 +41,7 @@
  * @param playingField Currently used field
  * @return 1 when a move is still possible, otherwise 0
  */
-int movePossible(int **playingField);
+int movePossible(tile_t **playingField);
 
 /**
  * Select a single field and add a value to it.
@@ -46,4 +51,4 @@ int movePossible(int **playingField);
  *
  * @param playingField
  */
-void fillEmptyField(int **playingField);
+void fillEmptyField(tile_t **playingField);
