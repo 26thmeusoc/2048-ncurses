@@ -16,7 +16,7 @@ AC_PROG_CC
 AC_SEARCH_LIBS(mvprintw,ncurses,[],[AC_ERROR([ncurses is required.])])
 
 # Checks for header files.
-AC_CHECK_HEADERS([stdlib.h ncurses.h math.h])
+AC_CHECK_HEADERS([stdlib.h ncurses.h math.h stdbool.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
