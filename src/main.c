@@ -60,7 +60,7 @@ int generateColorPairs() {
  */
 int initializePlayingField() {
     // Generate Rows in this game
-    if ((playingField = malloc(TILES*(sizeof(tile_t*)))) == NULL) {
+    if ((playingField = malloc(TILES*(sizeof(tile_t)))) == NULL) {
         // Something went wrong. Show error message
         printf("Could not allocate memory for game! Exiting!");
         // Exit this function with an Error-Code
@@ -69,7 +69,7 @@ int initializePlayingField() {
     
     // Generate Colums for each row
     for (int i = 0; i < TILES; i++) {
-        if ((playingField[i] = malloc(TILES*(sizeof(tile_t*)))) == NULL) {
+        if ((playingField[i] = malloc(TILES*(sizeof(tile_t)))) == NULL) {
             // Something went wrong. Show error message
             printf("Could not allocate memory for game! Exiting!");
             // Exit sthis function with an Error-Code

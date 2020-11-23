@@ -36,19 +36,57 @@ int cmpSize() {
         lastSizes = (screenSizes*) malloc(sizeof(screenSizes));
         lastSizes->maxWidth = newY;
         lastSizes->maxHeight = newX;
+        //calculateTileCoordinates();
     } else if (lastSizes->maxWidth != newY || lastSizes->maxHeight != newX) {
         lastSizes->maxWidth = newY;
         lastSizes->maxHeight = newX;
+        //calculateTileCoordinates();
         return 1;
     } else {
         return 0;
     }
 }
 
+void calculateTileCoordinates(tile_t** playingField) {
+    lastSizes->midx = (lastSizes->maxWidth)/2;
+    lastSizes->midy = (lastSizes->maxHeight)/2;
+    lastSizes->leftCol = (lastSizes->midx)-9;
+    lastSizes->upperLine = (lastSizes->midy)-3;
+    int row = lastSizes->upperLine;
+    for (int i = 0; i < 4; i++) {
+        int col = lastSizes->leftCol;
+        for (int n = 0; n < 4; n++) {
+            playingField[i][n].uixstart = col;
+            playingField[i][n].uiystart = row;
+            col = col+5;
+        }
+        row = row+2;
+    }
+}
+
+void redrawGrid() {
+    int x = lastSizes->leftCol;
+    int y = lastSizes->upperLine+1;
+    for (int i = 0; i < 3; i++) {
+        move(y,x);
+        for (int n = 0; n < 4; n++) {
+            addstr("----");
+            if (n+1 != 4) {
+                addstr("+");
+            }
+        }
+        x = lastSizes->leftCol;
+        y = y+2;
+    }
+}
 void refreshScreen(tile_t **playingField, long long int score) {
     int maxX, maxY; // Save screensize here.
     getmaxyx(stdscr,maxX,maxY); // Get screen dimensions
     int result = cmpSize();
+    if (result > 0) {
+        calculateTileCoordinates(playingField);
+        redrawGrid();
+    }
     mvprintw(lastSizes->maxHeight-1,0,"Size is: x: %i, y: %i",lastSizes->maxWidth,lastSizes->maxHeight);
     // Display playingfield, don't fill it with numbers now
     int xrow = 0;
@@ -58,7 +96,7 @@ void refreshScreen(tile_t **playingField, long long int score) {
     for (int row = 0; row < 4; row++) { // For each row...
         ycol = 0;
         for (int col = 0; col < 4; col++) { // ...and each column
-            mvprintw(xrow,ycol,"[    ]"); // Draw a small box
+            //mvprintw(xrow,ycol,"[    ]"); // Draw a small box
             getyx(stdscr,bordery,borderx);
             // Write each value backwards
             int num = 4;

@@ -25,9 +25,10 @@
  * You should have received a copy of the GNU General Public License
  * along with 2048-ncurses.  If not, see  <https://www.gnu.org/licenses/>.
  */
-
+#ifndef DEFTILE
 #include "tile.h"
-
+#define DEFTILE
+#endif
 
 /**
  * Check whether a move is still possible

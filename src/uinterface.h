@@ -33,9 +33,18 @@
 #define DEFGAME
 #endif
 
+#ifndef DEFTILE
+#include "tile.h"
+#define DEFTILE
+#endif
+
 typedef struct _screenSizes {
     int maxWidth;
     int maxHeight;
+    int midx;
+    int midy;
+    int leftCol;
+    int upperLine;
 } screenSizes;
 
 

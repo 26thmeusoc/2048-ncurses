@@ -32,6 +32,8 @@
 typedef struct _tile {
     int value; // Displayed Value on screen
     int colorCode; // Used color code
+    unsigned int uixstart;
+    unsigned int uiystart;
 } tile_t;
 
 // Define an item in a linked list of tiles
