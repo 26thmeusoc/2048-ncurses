@@ -62,7 +62,7 @@ void refreshScreen(tile_t **playingField, long long int score) {
             getyx(stdscr,bordery,borderx);
             // Write each value backwards
             int num = 4;
-            int numI = playingField[row][col]; // Select field
+            int numI = playingField[row][col].value; // Select field
             while (numI > 0) { // As long as not all numbers have been printed
                 // Display the current number
                 mvprintw(xrow,ycol+num,"%i",numI%10);

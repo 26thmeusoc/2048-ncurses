@@ -26,6 +26,11 @@
 
 #include <ncurses.h>
 
+#ifndef DEFGAME
+#include "game.h"
+#define DEFGAME
+#endif
+
 /**
  * Shift playingField to the left.
  * 

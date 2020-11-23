@@ -28,12 +28,12 @@
 
 
 int addTileItem(tileListItem_t **list, tile_t* newTile) {
-    tileListItem_t buffer = malloc(sizeof(tileListItem_t));
+    tileListItem_t *buffer = malloc(sizeof(tileListItem_t));
     if (buffer == NULL) {
         // Could not allocate enough memory!
         return false;
     }
-    buffer->nextTile = list;
+    buffer->nextTile = *list;
     *list = buffer;
     buffer->fieldTile = newTile;
     return true;
@@ -42,7 +42,7 @@ int addTileItem(tileListItem_t **list, tile_t* newTile) {
 void freeList(tileListItem_t *list) {
     tileListItem_t *listItem = list;
     while (listItem != NULL) {
-        tileListItem_t *buffer = listItem->next;
+        tileListItem_t *buffer = listItem->nextTile;
         free(listItem);
         listItem = buffer;
     }

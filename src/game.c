@@ -43,7 +43,7 @@ int movePossible(tile_t **playingField) {
     // 1. Is there at least one empty field left?
     for (int r = 0; r < 4; r++) { // Check each row
         for (int c = 0; c < 4; c++) { // Check each column
-            if (playingField[r][c] == 0) { // Is row/column an empty field?
+            if (playingField[r][c].value == 0) { // Is row/column an empty field?
                 return 1; // Yes! Quit this function already, return 1
             }
         }
@@ -52,7 +52,7 @@ int movePossible(tile_t **playingField) {
     // 2. Can two neighbouring fields get combined?
     for (int r = 0; r < 3; r++) { // Check each row
         for (int c = 0; c < 3; c++) { // Check each column
-            if (playingField[r][c] == playingField[r][c+1] || playingField[r][c] == playingField[r+1][c]) { // Can field to the right or below get combined?
+            if (playingField[r][c].value == playingField[r][c+1].value || playingField[r][c].value == playingField[r+1][c].value) { // Can field to the right or below get combined?
                 return 1; // Yes! Quit this function, return 1
             }
         }
@@ -76,7 +76,7 @@ void fillEmptyField(tile_t **playingField) {
     //int* cell = malloc(16*sizeof(gameCoords));
     for (int r = 0; r < 4; r++) { // For every row
         for (int c = 0; c < 4; c++) { // For every column
-            if (playingField[r][c] == 0) { // Is this field empty?
+            if (playingField[r][c].value == 0) { // Is this field empty?
                 position[counter].xCoord = r; // Yes, remember row...
                 position[counter].yCoord = c; // ...and column coordinate
                 counter++; // Increase counter
@@ -89,9 +89,9 @@ void fillEmptyField(tile_t **playingField) {
     // With a chance of 5:2 ...
     if ((rand()%7) < 5) {
         // ... set value of this field with 2
-        playingField[position[field].xCoord][position[field].yCoord] = 2;
+        playingField[position[field].xCoord][position[field].yCoord].value = 2;
     } else { // ... set value to 4
-        playingField[position[field].xCoord][position[field].yCoord] = 4;
+        playingField[position[field].xCoord][position[field].yCoord].value = 4;
     }
     free(position); // Free list, so we don't leak memory with every move
 }

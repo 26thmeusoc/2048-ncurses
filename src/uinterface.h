@@ -28,6 +28,11 @@
 #include <ncurses.h>
 #include <stdlib.h>
 
+#ifndef DEFGAME
+#include "game.h" // For game internals
+#define DEFGAME
+#endif
+
 typedef struct _screenSizes {
     int maxWidth;
     int maxHeight;

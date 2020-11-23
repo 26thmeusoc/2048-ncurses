@@ -35,7 +35,11 @@
 
 #include <ncurses.h> // For UI, use -lncurses when compiling
 
+#ifndef DEFGAME
 #include "game.h" // For game internals
+#define DEFGAME
+#endif
+
 #include "movements.h" // For Tileshifting
 #include "uinterface.h" //
 

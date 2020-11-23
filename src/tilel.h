@@ -31,7 +31,7 @@
 
 typedef struct _tileListItem {
     tile_t* fieldTile;
-    tileListItem_t* nextTile;
+    struct _tileListItem* nextTile;
 } tileListItem_t;
 
 int addTileItem(tileListItem_t **list, tile_t* newTile);
