@@ -5,7 +5,7 @@
  * Web: http://github.com/26thmeusoc/2048-ncurses
  * 
  * File created:  16.11.2020
- * Last modified: 21.11.2020
+ * Last modified: 23.11.2020
  * 
  *  This file is part of 2048-ncurses.
  *
@@ -27,39 +27,42 @@
 #include "tile.h"
 
 int addTileItem(tileListItem_t **list, tile_t* newTile) {
+    // Create a new List item
     tileListItem_t *buffer = malloc(sizeof(tileListItem_t));
-    if (buffer == NULL) {
-        // Could not allocate enough memory!
-        return false;
+    if (buffer == NULL) { // New item created?
+        // No! Could not allocate enough memory!
+        return 0;
     }
-    buffer->nextTile = *list;
-    *list = buffer;
-    buffer->fieldTile = newTile;
-    return true;
+    buffer->nextTile = *list; // Next pointer of new item points to head of list
+    *list = buffer; // Move Headpointer of list to new pointer
+    buffer->fieldTile = newTile; // Set value of new Listhead
+    return 1; // Everything went okay
 }
 
 void freeList(tileListItem_t *list) {
-    tileListItem_t *listItem = list;
-    while (listItem != NULL) {
-        tileListItem_t *buffer = listItem->nextTile;
-        free(listItem);
-        listItem = buffer;
+    tileListItem_t *listItem = list; // Point to first item in list
+    while (listItem != NULL) { // As long, as there are still fields ...
+        tileListItem_t *buffer = listItem->nextTile; // Remember next item
+        free(listItem); // Free first Item in List
+        listItem = buffer; // Move pointer to next item in lists
     }
 }
 
 tile_t* getElementAtPosition(tileListItem_t *list, unsigned int pos) {
-    while (list != NULL && pos > 0) {
-        list = list->nextTile;
-        pos--;
+    while (list != NULL && pos > 0) { // As long as there are items and pos is still not reached
+        list = list->nextTile; // Go to next item in list
+        pos--; // Decrease pos
     }
-    return list->fieldTile;
+    // @TODO Fix access to NULL Field
+    return list->fieldTile; // Return content of current pointer
 }
 
 unsigned int getListSize(tileListItem_t *list) {
+    // Start counting
     unsigned int counter = 0;
-    while (list != NULL) {
-        list = list->nextTile;
-        counter++;
+    while (list != NULL) { // As long as there are still items in this list
+        list = list->nextTile; // Go to next item
+        counter++; // Increase counter
     }
-    return counter;
+    return counter; // Return result
 }

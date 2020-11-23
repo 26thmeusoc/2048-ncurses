@@ -93,6 +93,6 @@ void fillEmptyField(tile_t **playingField) {
     } else { // ... set value to 4
         getElementAtPosition(listStart,field)->value = 4;
     }
-    freeList(listStart);
+    freeList(listStart); // Free list of items
     free(position); // Free list, so we don't leak memory with every move
 }
