@@ -41,6 +41,7 @@ int cmpSize() {
         lastSizes->maxWidth = newY;
         lastSizes->maxHeight = newX;
         //calculateTileCoordinates();
+        clear();
         return 1;
     } else {
         return 0;
@@ -100,7 +101,7 @@ void refreshScreen(tile_t **playingField, long long int score) {
         calculateTileCoordinates(playingField);
         redrawGrid();
     }
-    mvprintw(lastSizes->maxHeight-1,0,"Size is: x: %i, y: %i",lastSizes->maxWidth,lastSizes->maxHeight);
+    //mvprintw(lastSizes->maxHeight-1,0,"Size is: x: %i, y: %i",lastSizes->maxWidth,lastSizes->maxHeight);
     // Display playingfield, don't fill it with numbers now
     int xrow = 0;
     int ycol = 0;
