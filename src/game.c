@@ -78,8 +78,6 @@ void fillEmptyField(tile_t **playingField) {
     for (int r = 0; r < 4; r++) { // For every row
         for (int c = 0; c < 4; c++) { // For every column
             if (playingField[r][c].value == 0) { // Is this field empty?
-                /*position[counter].xCoord = r; // Yes, remember row...
-                position[counter].yCoord = c; // ...and column coordinate*/
                 addTileItem(&listStart,&playingField[r][c]);
                 counter++; // Increase counter
             }
@@ -91,9 +89,10 @@ void fillEmptyField(tile_t **playingField) {
     // With a chance of 5:2 ...
     if ((rand()%7) < 5) {
         // ... set value of this field with 2
-        playingField[position[field].xCoord][position[field].yCoord].value = 2;
+        getElementAtPosition(listStart,field)->value = 2;
     } else { // ... set value to 4
-        playingField[position[field].xCoord][position[field].yCoord].value = 4;
+        getElementAtPosition(listStart,field)->value = 4;
     }
+    freeList(listStart);
     free(position); // Free list, so we don't leak memory with every move
 }

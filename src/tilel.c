@@ -48,10 +48,18 @@ void freeList(tileListItem_t *list) {
 }
 
 tile_t* getElementAtPosition(tileListItem_t *list, unsigned int pos) {
-    int counter = 0;
-    while (list != NULL && pos < counter) {
+    while (list != NULL && pos > 0) {
+        list = list->nextTile;
+        pos--;
+    }
+    return list->fieldTile;
+}
+
+unsigned int getListSize(tileListItem_t *list) {
+    unsigned int counter = 0;
+    while (list != NULL) {
         list = list->nextTile;
         counter++;
     }
-    return list->fieldTile;
+    return counter;
 }

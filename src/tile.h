@@ -42,3 +42,5 @@ int addTileItem(tileListItem_t **list, tile_t* newTile);
 void freeList(tileListItem_t *list);
 
 tile_t* getElementAtPosition(tileListItem_t *list, unsigned int pos);
+
+unsigned int getListSize(tileListItem_t *list);
