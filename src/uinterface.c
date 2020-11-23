@@ -78,6 +78,19 @@ void redrawGrid() {
         x = lastSizes->leftCol;
         y = y+2;
     }
+    x = (lastSizes->leftCol)+4;
+    y = lastSizes->upperLine;
+    move(y,x);
+    for (int i = 0; i < 4; i++) {
+        for (int n = 0; n < 3; n++) {
+            addstr("|");
+            x = x+5;
+            move(y,x);
+        }
+        x = (lastSizes->leftCol)+4;
+        y = y+2;
+        move(y,x);
+    }
 }
 void refreshScreen(tile_t **playingField, long long int score) {
     int maxX, maxY; // Save screensize here.
@@ -94,22 +107,26 @@ void refreshScreen(tile_t **playingField, long long int score) {
     int borderx=0;
     int bordery=0;
     for (int row = 0; row < 4; row++) { // For each row...
-        ycol = 0;
+        //ycol = 0;
         for (int col = 0; col < 4; col++) { // ...and each column
-            //mvprintw(xrow,ycol,"[    ]"); // Draw a small box
-            getyx(stdscr,bordery,borderx);
+            //getyx(stdscr,bordery,borderx);
+            //move(playingField->uiystart,playingField->uixstart);
+            xrow = playingField[row][col].uiystart;
+            //mvprintw(col,row,"x: %i, y: %i",playingField[row][col].uixstart, playingField[row][col].uiystart);
+            ycol = playingField[row][col].uixstart;
             // Write each value backwards
-            int num = 4;
+            int num = 3;
             int numI = playingField[row][col].value; // Select field
+            mvprintw(xrow,ycol,"    ");
             while (numI > 0) { // As long as not all numbers have been printed
                 // Display the current number
                 mvprintw(xrow,ycol+num,"%i",numI%10);
                 num--; // Get one character to the left
                 numI=numI/10; // Div value by 10 (shift this number)
             }
-            ycol=borderx; // Go to the next cell 
+            //ycol=borderx; // Go to the next cell 
         }
-        xrow++; // Go to the next row
+        //xrow++; // Go to the next row
     }
     mvprintw(maxX-2,0,"Score: %i",score); // Display Scorerow at the end of the screen
     refresh(); // Redraw screen
