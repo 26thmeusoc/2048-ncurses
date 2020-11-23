@@ -26,10 +26,8 @@
  * along with 2048-ncurses.  If not, see  <https://www.gnu.org/licenses/>.
  */
 
-typedef struct _tile {
-    int value;
-    int colorCode;
-} tile_t;
+#include "tile.h"
+
 
 /**
  * Check whether a move is still possible

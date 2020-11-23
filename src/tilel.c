@@ -24,8 +24,7 @@
  * 
  */
 
-#include "tilel.h"
-
+#include "tile.h"
 
 int addTileItem(tileListItem_t **list, tile_t* newTile) {
     tileListItem_t *buffer = malloc(sizeof(tileListItem_t));
@@ -46,4 +45,13 @@ void freeList(tileListItem_t *list) {
         free(listItem);
         listItem = buffer;
     }
+}
+
+tile_t* getElementAtPosition(tileListItem_t *list, unsigned int pos) {
+    int counter = 0;
+    while (list != NULL && pos < counter) {
+        list = list->nextTile;
+        counter++;
+    }
+    return list->fieldTile;
 }

@@ -23,10 +23,13 @@
  * along with 2048-ncurses.  If not, see  <https://www.gnu.org/licenses/>.
  * 
  */
-
+#include <stdlib.h>
 #include <stdbool.h>
 
-#include "game.h"
+typedef struct _tile {
+    int value;
+    int colorCode;
+} tile_t;
 
 
 typedef struct _tileListItem {
@@ -37,3 +40,5 @@ typedef struct _tileListItem {
 int addTileItem(tileListItem_t **list, tile_t* newTile);
 
 void freeList(tileListItem_t *list);
+
+tile_t* getElementAtPosition(tileListItem_t *list, unsigned int pos);

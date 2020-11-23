@@ -37,7 +37,7 @@
 
 #ifndef DEFGAME
 #include "game.h" // For game internals
-#define DEFGAME
+#define DEFGAME 1
 #endif
 
 #include "movements.h" // For Tileshifting

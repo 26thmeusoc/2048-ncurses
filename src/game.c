@@ -72,13 +72,15 @@ void fillEmptyField(tile_t **playingField) {
     /* Generate two lists, remember which row and column combination,
      * sizes have to be number of all available fields.
      */
+    tileListItem_t* listStart= NULL;
     gameCoords_t* position = malloc(16*sizeof(gameCoords_t));
     //int* cell = malloc(16*sizeof(gameCoords));
     for (int r = 0; r < 4; r++) { // For every row
         for (int c = 0; c < 4; c++) { // For every column
             if (playingField[r][c].value == 0) { // Is this field empty?
-                position[counter].xCoord = r; // Yes, remember row...
-                position[counter].yCoord = c; // ...and column coordinate
+                /*position[counter].xCoord = r; // Yes, remember row...
+                position[counter].yCoord = c; // ...and column coordinate*/
+                addTileItem(&listStart,&playingField[r][c]);
                 counter++; // Increase counter
             }
         }
