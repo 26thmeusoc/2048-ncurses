@@ -108,14 +108,13 @@ int initializePlayingField() {
 }
 
 int restartGame() {
-    free(playingField);
-    initializePlayingField();
-    score=0;
-    calculateTileCoordinates(playingField);
-    clear();
-    redrawGrid();
-    refreshScreen(playingField,score);
-    //mvprintw(lastSizes->maxHeight-2,9,);
+    free(playingField); // Delete old playing Field
+    initializePlayingField(); // Create a new field from scratch
+    score=0; // Restart Score
+    calculateTileCoordinates(playingField); // Fill coordinates for each field
+    clear(); // Delete old screen
+    redrawGrid(); // Redraw screen
+    refreshScreen(playingField,score); // Display field
 }
 
 int main(int argc, char **argv) {
