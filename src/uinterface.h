@@ -47,7 +47,10 @@ typedef struct _screenSizes {
     int upperLine;
 } screenSizes;
 
+
 void calculateTileCoordinates(tile_t** playingField);
+
+void redrawGrid();
 
 int cmpSize();
 

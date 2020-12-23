@@ -50,6 +50,8 @@ int generateColorPairs() {
     return 0;
 }
 
+//extern screenSizes* lastSizes;
+
 /**
  * Generate a playing Field.
  * 
@@ -110,7 +112,10 @@ int restartGame() {
     initializePlayingField();
     score=0;
     calculateTileCoordinates(playingField);
+    clear();
+    redrawGrid();
     refreshScreen(playingField,score);
+    //mvprintw(lastSizes->maxHeight-2,9,);
 }
 
 int main(int argc, char **argv) {
