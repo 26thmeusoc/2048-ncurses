@@ -105,6 +105,14 @@ int initializePlayingField() {
     return 0;
 }
 
+int restartGame() {
+    free(playingField);
+    initializePlayingField();
+    score=0;
+    calculateTileCoordinates(playingField);
+    refreshScreen(playingField,score);
+}
+
 int main(int argc, char **argv) {
     if (initializePlayingField() > 0) { // Can we allocate enough memory?
         return EXIT_FAILURE; // BAIL! BAIL! BAIL!
@@ -136,6 +144,9 @@ int main(int argc, char **argv) {
             break;
             case KEY_RIGHT:
             result = moveRight(playingField,&score);
+            break;
+            case KEY_F(2):
+            restartGame();
             break;
             case KEY_F(9):
             clear();
