@@ -47,16 +47,38 @@ typedef struct _screenSizes {
     int upperLine;
 } screenSizes;
 
-
+/**
+ * Recalculate position of tiles on screen.
+ * 
+ * Fill coordinates in playingField tiles with their on screen
+ * coordinates. This allows easier jumping to when redrawing the screen.
+ * 
+ * @pre lastSizes set to current Values
+ */
 void calculateTileCoordinates(tile_t** playingField);
 
+/**
+ * Redraw grid of playingField.
+ * 
+ * Draws grid on playing field.
+ * 
+ * @pre lastSizes set to current Values
+ */
 void redrawGrid();
 
+/**
+ * Compare current screenSize with size of last move.
+ * 
+ * @return 1 if size of screen has changed, otherwise 0.
+ */
 int cmpSize();
 
 /**
  * Redraw fields on screen.
  * 
  * Redraw the complete playingfield on screen.
+ * 
+ * @param playingField Currently played Field
+ * @param score Current Score
  */
 void refreshScreen(tile_t** playingField, long long int score);

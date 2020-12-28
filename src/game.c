@@ -3,9 +3,6 @@
  * 
  * Author: Dirk Braun
  * Web: http://github.com/26thmeusoc/2048-ncurses
- * 
- * File created:  14.10.2020
- * Last modified: 22.10.2020
  *  
  *  This file is part of 2048-ncurses.
  *
@@ -74,7 +71,6 @@ void fillEmptyField(tile_t **playingField) {
      */
     tileListItem_t* listStart= NULL;
     gameCoords_t* position = malloc(16*sizeof(gameCoords_t));
-    //int* cell = malloc(16*sizeof(gameCoords));
     for (int r = 0; r < 4; r++) { // For every row
         for (int c = 0; c < 4; c++) { // For every column
             if (playingField[r][c].value == 0) { // Is this field empty?

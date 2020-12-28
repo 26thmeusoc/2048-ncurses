@@ -4,9 +4,6 @@
  * Author: Dirk Braun
  * Web: http://github.com/26thmeusoc/2048-ncurses
  * 
- * File created:  14.10.2020
- * Last modified: 22.10.2020
- * 
  *  This file is part of 2048-ncurses.
  *
  * 2048-ncurses is free software: you can redistribute it and/or modify
@@ -49,10 +46,10 @@ int moveLeft(tile_t** playingField, long long int *score) {
                     playingField[row][col+1].value = 0;
                     moved = 1; // Remember, there was a loop iteration in this move
                     result = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
-                }
-            }
-        }
-    }
+                } // of if (playingField)
+            } // of for (col=0)
+        } // of for (row = 0)
+    } // of while (moved > 0)
     
     // Now check if there can be any merges made!
     for (int row = 0; row < 4; row++) { // For each row
@@ -64,9 +61,9 @@ int moveLeft(tile_t** playingField, long long int *score) {
                 playingField[row][col].value = playingField[row][col].value*2; // Merge two cells
                 playingField[row][col+1].value = 0; // Reset value of second cell
                 result = 1; // There was at least one useful move done (merging two cells) in this call, remember it for later
-            }
-        }
-    }
+            } // of if (playingField)
+        } // of for (col=0)
+    } // of for (row=0)
     
     /*
      * In case there were cells merged in the step before, we need
@@ -84,10 +81,10 @@ int moveLeft(tile_t** playingField, long long int *score) {
                         playingField[row][col+1].value = 0;
                         moved = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
                     }
-                }
-            }
-        }
-    }
+                } // of if (playingField)
+            } // of for (for col=0)
+        } // of for (row=0)
+    } // of if (result > 0)
     
     return result;
 }
@@ -106,10 +103,10 @@ int moveRight(tile_t **playingField, long long int *score) {
                     playingField[row][col-1].value = 0; // Reset value of second cell
                     moved = 1; // Remember, there was a loop iteration in this move
                     result = 1; // There was at least one useful move done (moved a 0 field to the left) in this call, remember it for later
-                }
-            }
-        }
-    }
+                } // of if (playingField)
+            } // of for (col=3)
+        } // of for (row=0)
+    } // of while (moved > 0)
     
     // Now check if there can be any merges made!
     for (int row = 0; row < 4; row++) { // For each row
@@ -120,9 +117,9 @@ int moveRight(tile_t **playingField, long long int *score) {
                 playingField[row][col].value = playingField[row][col].value*2; // Merge two cells
                 playingField[row][col-1].value = 0; // Reset value of second cell
                 result = 1; // There was at least one useful move done (merging two cells) in this call, remember it for later
-            }
-        }
-    }
+            } // of if (playingField)
+        } // of for (col=3)
+    } // of for (row=0)
     
     /*
      * In case there were cells merged in the step before, we need
@@ -140,11 +137,11 @@ int moveRight(tile_t **playingField, long long int *score) {
                         playingField[row][col].value = playingField[row][col-1].value;
                         playingField[row][col-1].value = 0;
                         moved = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
-                    }
-                }
-            }
-        }
-    }
+                    } // of if (playingField.value)
+                } // of for (col=3)
+            } // of for (row=0)
+        } // of while (moved > 0)
+    } // of if (result > 0)
     
     return result;
 }
@@ -154,7 +151,7 @@ int moveUp(tile_t ** playingField, long long int *score) {
     int moved = 1; // Remember whether there was a move (for loops)
     // First of all, move all tiles to the left, replace 0-fields with value next to them
     while (moved > 0) { // As long as there was a move last time
-        moved=0;
+        moved=0; // reset moved value
         for (int row = 0; row < 3; row++) { // For every row
             for (int col = 0; col < 4; col++) { // in each column
                 if ((playingField[row][col].value == 0) && (playingField[row+1][col].value > 0)) { // Is the current field a 0 and has a field with value > 0 above?
@@ -163,10 +160,10 @@ int moveUp(tile_t ** playingField, long long int *score) {
                     playingField[row+1][col].value = 0; // Reset value of second cell
                     moved = 1; // Remember, there was a loop iteration in this move
                     result = 1; // There was at least one useful move done (moved a 0 field down) in this call, remember it for later
-                }
-            }
-        }
-    }
+                } // of if (playingField)
+            } // of for (col=0)
+        } // of for (row=0)
+    } // of while (moved>0)
     
     // Now check if there can be any merges made!
     for (int row = 0; row < 3; row++) { // For each row
@@ -178,9 +175,9 @@ int moveUp(tile_t ** playingField, long long int *score) {
                 playingField[row][col].value = playingField[row][col].value*2; // Merge two cells
                 playingField[row+1][col].value = 0; // Reset value of second cell
                 result = 1; // There was at least one useful move done (merging two cells) in this call, remember it for later
-            }
-        }
-    }
+            } // of if (playingField)
+        } // of for (col=0)
+    } // of for (row=0)
     
     /*
      * In case there were cells merged in the step before, we need
@@ -198,11 +195,11 @@ int moveUp(tile_t ** playingField, long long int *score) {
                         playingField[row][col].value = playingField[row+1][col].value;
                         playingField[row+1][col].value = 0;
                         moved = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
-                    }
-                }
-            }
-        }
-    }
+                    } // of if (playingField)
+                } // of for (col=0)
+            } // of for (row=0)
+        } // of while (moved>0)
+    } // of if (result>0)
     
     return result;
 }
@@ -221,10 +218,10 @@ int moveDown(tile_t **playingField, long long int *score) {
                     playingField[row-1][col].value = 0; // Reset value of second cell
                     moved = 1; // Remember, there was a loop iteration in this move
                     result = 1; // There was at least one useful move done (moved a 0 field to the up) in this call, remember it for later
-                }
-            }
-        }
-    }
+                } // of if (playingField)
+            } // of for (col=0)
+        } // of for (row=3)
+    } // of while (moved>0)
     
     // Now check if there can be any merges made!
     for (int row = 3; row > 0; row--) {  // For each row
@@ -236,9 +233,9 @@ int moveDown(tile_t **playingField, long long int *score) {
                 // Merge two cells
                 playingField[row-1][col].value = 0; // Reset value of second cell
                 result = 1; // There was at least one useful move done (merging two cells) in this call, remember it for later
-            }
-        }
-    }
+            } // of if (playingField)
+        } // of for (col=0)
+    } // of for (row=3)
     
     /*
      * In case there were cells merged in the step before, we need
@@ -256,11 +253,11 @@ int moveDown(tile_t **playingField, long long int *score) {
                         playingField[row][col].value = playingField[row-1][col].value;
                         playingField[row-1][col].value = 0;
                         moved = 1; // There was at least one useful move done (moved a 0 field to the right) in this call, remember it for later
-                    }
-                }
-            }
-        }
-    }
+                    } // of if (playingField)
+                } // of for (col=0)
+            } // of for (row=3)
+        } // of while (moved>0)
+    } // of if (result>0)
     
     return result;
 }

@@ -32,7 +32,7 @@ int addTileItem(tileListItem_t **list, tile_t* newTile) {
     if (buffer == NULL) { // New item created?
         // No! Could not allocate enough memory!
         return 0;
-    }
+    } // of if (buffer)
     buffer->nextTile = *list; // Next pointer of new item points to head of list
     *list = buffer; // Move Headpointer of list to new pointer
     buffer->fieldTile = newTile; // Set value of new Listhead
@@ -45,14 +45,14 @@ void freeList(tileListItem_t *list) {
         tileListItem_t *buffer = listItem->nextTile; // Remember next item
         free(listItem); // Free first Item in List
         listItem = buffer; // Move pointer to next item in lists
-    }
+    } // of while (listItem != NULL)
 }
 
 tile_t* getElementAtPosition(tileListItem_t *list, unsigned int pos) {
     while (list != NULL && pos > 0) { // As long as there are items and pos is still not reached
         list = list->nextTile; // Go to next item in list
         pos--; // Decrease pos
-    }
+    } // of while (list != NULL)
     // @TODO Fix access to NULL Field
     return list->fieldTile; // Return content of current pointer
 }
@@ -63,6 +63,6 @@ unsigned int getListSize(tileListItem_t *list) {
     while (list != NULL) { // As long as there are still items in this list
         list = list->nextTile; // Go to next item
         counter++; // Increase counter
-    }
+    } // of while (list != NULL)
     return counter; // Return result
 }

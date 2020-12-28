@@ -4,9 +4,6 @@
  * Author: Dirk Braun
  * Web: http://github.com/26thmeusoc/2048-ncurses
  * 
- * File created:  14.10.2020
- * Last modified: 22.10.2020
- * 
  * Description:
  * This code is a C reimplementation of Gabriele Cirullis JavaScript
  * implementation of 2048. It uses ncurses as display library to create
@@ -46,6 +43,7 @@
 int TILES = 4; // Size of Playingfield, will be TILESxTILES
 tile_t** playingField; // Save the current playing field in here
 long long int score = 0; // Save the current player score in here
+
 int generateColorPairs() {
     return 0;
 }
@@ -107,6 +105,12 @@ int initializePlayingField() {
     return 0;
 }
 
+/**
+ * Restart the game.
+ * 
+ * 
+ * @return 0 when restart was sucessful, otherwise 1.
+ */
 int restartGame() {
     free(playingField); // Delete old playing Field
     initializePlayingField(); // Create a new field from scratch
@@ -150,10 +154,11 @@ int main(int argc, char **argv) {
             result = moveRight(playingField,&score);
             break;
             case KEY_F(2):
-            restartGame();
+            restartGame(); // Start game from beginning
             break;
             case KEY_F(9):
-            clear();
+            clear(); // Empty Screen
+            // Print aboutscreen, delete after Keypress and return to the game
             mvprintw(3,2,"2048-ncurses");
             mvprintw(4,2,"A reimplementation of 2048 by:");
             mvprintw(5,6,"Gabriele Cirulli et al.");
@@ -162,11 +167,13 @@ int main(int argc, char **argv) {
             mvprintw(9,6,"Dirk Braun");
             mvprintw(10,6,"https://github.com/26thmeusoc/2048-ncurses/");
             mvprintw(12,2,"Published under GNU Public License v3");
-            getch();
-            clear();
-            refreshScreen(playingField,score);
+            getch(); // Wait for Keypress
+            clear(); // Empty screen again
+            refreshScreen(playingField,score); // Redraw screen again
             break;
             default:
+            // What happens with any other pressed key?
+            // Nothing!
             break;
         }
         
