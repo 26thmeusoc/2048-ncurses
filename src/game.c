@@ -82,8 +82,10 @@ void fillEmptyField(tile_t **playingField) {
     
     int field = rand() % counter; // Select one random field
     
-    // With a chance of 5:2 ...
-    if ((rand()%7) < 5) {
+    // With a chance of 90% ...
+    // Probability taken from code by Gabriele Cirulli
+    // see File/Line js/game_manager.js:71
+    if ((rand()%10) < 9) {
         // ... set value of this field with 2
         getElementAtPosition(listStart,field)->value = 2;
     } else { // ... set value to 4
