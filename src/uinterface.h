@@ -3,9 +3,6 @@
  * 
  * Author: Dirk Braun
  * Web: http://github.com/26thmeusoc/2048-ncurses
- * 
- * File created:  23.10.2020
- * Last modified: 23.10.2020
  *  
  *  This file is part of 2048-ncurses.
  *
